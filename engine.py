@@ -168,7 +168,7 @@ def train(model: nn.Module,
     results["test_acc"].append(test_acc)
 
     # Print values
-    print(f"\nEpochs: {epoch+1} | "
+    print(f"Epochs: {epoch+1} | "
           f"Train_loss: {train_loss: .4f} | "
           f"Train_acc: {train_acc: .2f} | "
           f"Test_loss: {test_loss: .4f} | "
