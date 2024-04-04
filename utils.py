@@ -5,7 +5,7 @@ Function to save trained model
 from pathlib import Path
 import torch
 def save_model(
-    # model: torch.nn.Module,
+     model: torch.nn.Module,
                target_dir: str,
                model_name: str) -> Path:
     """Saves a PyTorch model to a target director
