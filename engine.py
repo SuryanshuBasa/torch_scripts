@@ -110,7 +110,8 @@ def train(model: nn.Module,
           loss_fn: nn.Module,
           optimizer: torch.optim.Optimizer,
           device: torch.device,
-          epochs: int
+          epochs: int,
+          writer: torch.utils.tensorboard.writer.SummaryWriter = None
           ) -> Dict[str,List[float]]:
   """Trains and Test PyTorch model
 
@@ -125,6 +126,7 @@ def train(model: nn.Module,
     optimizer: optimizer for gradient descent
     device: device to run the model
     epochs: no of interations to train model
+    writer: tensorboard summary writer to track model in tensorboard (optional)
   Returns:
     A dict which contains train test loss and accuracy for every epoch
     in the format:
@@ -167,8 +169,28 @@ def train(model: nn.Module,
     results["test_loss"].append(test_loss)
     results["test_acc"].append(test_acc)
 
+    ### New: Experiment Tracking ###
+    if writer is not None:
+      writer.add_scalars(main_tag = "Loss",
+                        tag_scalar_dict = {"train_loss":train_loss,
+                                            "test_loss": test_loss},
+                        global_step = epoch)
+      writer.add_scalars(main_tag = "Accuracy",
+                        tag_scalar_dict = {"train_acc":train_acc,
+                                            "test_acc": test_acc},
+                        global_step = epoch)
+      writer.add_graph(model = model,
+                    input_to_model = torch.randn(32,3,224,224).to(device))
+
+      # Close writer
+      writer.close()
+    ### End New ###
+
+
+
+
     # Print values
-    print(f"Epochs: {epoch+1} | "
+    print(f"\nEpochs: {epoch+1} | "
           f"Train_loss: {train_loss: .4f} | "
           f"Train_acc: {train_acc: .2f} | "
           f"Test_loss: {test_loss: .4f} | "

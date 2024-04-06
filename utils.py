@@ -33,7 +33,7 @@ def save_model(
                f = model_name_path)
     return model_name_path
     
-if __name__ == '__main__':
-    name = save_model("data" , "model.pth")
-    print(name , type(name))
+# if __name__ == '__main__':
+#     name = save_model("data" , "model.pth")
+#     print(name , type(name))
     
