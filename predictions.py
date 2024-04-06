@@ -6,6 +6,7 @@ from torch import nn
 from PIL import Image
 import requests
 import torchvision
+from torchvision import transforms
 from typing import List
 from timeit import default_timer as timer
 import matplotlib.pyplot as plt
@@ -56,7 +57,7 @@ def prediction_on_image(url : str ,
     # Open img to perform operations
     with Image.open("image.jpg") as img:
         # Transform image
-        image = transform(img)
+        image = img_transform(img)
         # Add batch dim
         image = image.unsqueeze(dim = 0)
         start = timer()
