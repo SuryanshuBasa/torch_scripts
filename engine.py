@@ -5,6 +5,7 @@ from typing import Tuple , Dict , List
 from tqdm.auto import tqdm
 import torch
 from torch import nn
+from torch.utils.tensorboard import SummaryWriter
 
 def train_step(model: nn.Module,
                dataloader: torch.utils.data.DataLoader,
